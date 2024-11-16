@@ -10,13 +10,13 @@ body {
 }
 
 #russImg {
-    width: 300px;
+    width: 140px;
 }
 
 #plusImg {
     display: none;
     position: absolute;
-    left: 54%;
+    left: 55%;
     width: 50px;
     rotate: 15deg;
 }

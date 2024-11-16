@@ -33,7 +33,7 @@ function updateScore() {
     }, 100);
     setTimeout(() => {
         plusImg.style.display = "none";
-    }, 150);
+    }, 140);
 
 
     myUrl = `/playerClick/${username}`;
