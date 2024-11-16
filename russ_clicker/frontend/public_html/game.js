@@ -1,5 +1,5 @@
 const requestObj = new XMLHttpRequest();
-const russButton = document.getElementById("russButton");
+const russImg = document.getElementById("russImg");
 const playerScoreEl = document.getElementById("playerScore");
 const username = "TEMPUSER"; // change for login functionality with database
 
@@ -24,6 +24,8 @@ requestObj.onreadystatechange = function () {
 
 
 function updateScore() {
+    russImg.style.scale = 1.05;
+    setTimeout(() => { russImg.style.scale = 1; }, 100);
     myUrl = `/playerClick/${username}`;
 
     requestObj.open("GET", myUrl);

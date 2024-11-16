@@ -5,16 +5,10 @@ body {
     padding: 0px;
     background-color: burlywood;
     color: beige;
+    /* without this, pixel art is blurry, found this solution on Stack Overflow. */
+    image-rendering: pixelated;
 }
 
-#russButton {
-    background-color: rgb(145, 121, 89);
-    width: 100px;
-    height: 90px;
-    margin: auto;
-    vertical-align: middle;
-}
-
-#russButton:hover {
-    background-color: rgb(118, 98, 72);
+#russImg {
+    width: 300px;
 }
