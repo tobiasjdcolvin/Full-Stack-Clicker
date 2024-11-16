@@ -1,0 +1,29 @@
+body {
+    box-sizing: border-box;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    background-color: burlywood;
+    color: beige;
+    /* without this, pixel art is blurry, found this solution on Stack Overflow. */
+    image-rendering: pixelated;
+}
+
+input {
+    color: beige;
+    background-color: rgb(153, 126, 93);
+    border-color: rgb(131, 108, 80);
+    border-radius: 4px;
+}
+
+input:focus {
+    /* Removes weird blue glow from text when inputting */
+    outline: none;
+}
+
+button {
+    color: beige;
+    background-color: rgb(153, 126, 93);
+    border-color: rgb(131, 108, 80);
+    border-radius: 4px;
+}

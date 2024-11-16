@@ -2,10 +2,26 @@ const express = require('express');
 const app = express();
 const port = 50001;
 
-let SCORE = 0 // TEMPORARY - will retrieve from database in future
+let SCORE = 0; // TEMPORARY - will retrieve from database in future, using USERNAME
+let USERNAME = "TEMP";
 
 // statically serves files within public_html directory
 app.use(express.static("../frontend/public_html"));
+
+app.get("/setUsername/:username", (req, res) => {
+    USERNAME = req.params.username; // will use this with database in future to look up individual player scores
+
+    res.setHeader('Content-Type', 'text/plain');
+    res.statusCode = 200;
+    res.send("");
+})
+
+
+app.get("/getUsername", (req, res) => {
+    res.setHeader('Content-Type', 'text/plain');
+    res.statusCode = 200;
+    res.send(`${USERNAME}`);
+})
 
 
 app.get("/playerClick/:username", (req, res) => {
@@ -19,8 +35,7 @@ app.get("/playerClick/:username", (req, res) => {
     res.send(`${playerScore}`);
 })
 
-app.get("/getScore/:username", (req, res) => {
-    let username = req.params.username; // will use this with database in future to look up individual player scores
+app.get("/getScore", (req, res) => {
     let playerScore = SCORE; // look up username in database to get associated score
 
     res.setHeader('Content-Type', 'text/plain');

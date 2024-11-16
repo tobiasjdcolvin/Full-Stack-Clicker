@@ -2,26 +2,60 @@ const requestObj = new XMLHttpRequest();
 const russImg = document.getElementById("russImg");
 const plusImg = document.getElementById("plusImg");
 const playerScoreEl = document.getElementById("playerScore");
-const username = "TEMPUSER"; // change for login functionality with database
+let username = "";
 
-// gets score initially when page loads up, make work with database in future
-let myUrl = `/getScore/${username}`;
+function initializePage() {
+    getScoreInit(); // this function then calls getUsernameInit when done
+}
 
-requestObj.open("GET", myUrl);
-requestObj.send();
+initializePage();
 
-// this is the same logic as given to us in the slides
-requestObj.onreadystatechange = function () {
-    if (this.readyState == XMLHttpRequest.DONE) {
-        if (requestObj.status === 200) {
-            playerScoreEl.textContent = `Score: ${this.responseText}`;
-        } else {
-            // something went wrong
-            console.log(requestObj.responseText);
+function getUsernameInit() {
+    // gets username initially when page loads up
+    let myUrl = "/getUsername";
+
+    requestObj.open("GET", myUrl);
+    requestObj.send();
+
+    // this is the same logic as given to us in the slides
+    requestObj.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (requestObj.status === 200) {
+                username = this.responseText;
+            } else {
+                // something went wrong
+                console.log(requestObj.responseText);
+            }
+
         }
+    };
 
-    }
-};
+}
+
+
+function getScoreInit() {
+    // gets score initially when page loads up
+    let myNewUrl = "/getScore";
+
+    requestObj.open("GET", myNewUrl);
+    requestObj.send();
+
+    // this is the same logic as given to us in the slides
+    requestObj.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (requestObj.status === 200) {
+                playerScoreEl.textContent = `Score: ${this.responseText}`;
+            } else {
+                // something went wrong
+                console.log(requestObj.responseText);
+            }
+
+        }
+    };
+
+    getUsernameInit();
+
+}
 
 
 function updateScore() {
