@@ -12,3 +12,11 @@ body {
 #russImg {
     width: 300px;
 }
+
+#plusImg {
+    display: none;
+    position: absolute;
+    left: 54%;
+    width: 50px;
+    rotate: 15deg;
+}
