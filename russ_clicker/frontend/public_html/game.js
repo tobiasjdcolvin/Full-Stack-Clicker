@@ -2,6 +2,7 @@ const requestObj = new XMLHttpRequest();
 const russImg = document.getElementById("russImg");
 const plusImg = document.getElementById("plusImg");
 const playerScoreEl = document.getElementById("playerScore");
+const titleName = document.getElementById("titleName");
 let username = "";
 
 function initializePage() {
@@ -22,6 +23,7 @@ function getUsernameInit() {
         if (this.readyState == XMLHttpRequest.DONE) {
             if (requestObj.status === 200) {
                 username = this.responseText;
+                titleName.textContent = username;
                 getScoreInit(username);
             } else {
                 // something went wrong
