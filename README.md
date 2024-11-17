@@ -9,10 +9,6 @@
 5. `cd` into the **russ_clicker** directory
 6. `cd` into the **backend** directory
 7. Run `node server.js`
-8. Copy and paste the url it gives you into your browser, but also add `/game.html` to the end of it. The entire url should
-   look something like: `127.0.0.1:50001/game.html`
+8. Copy and paste the url it gives you into your browser, this should bring you to index.html, which is the login page.
+9. For now, login with the username "username", "Tobinski", or "Slurricane", I have simulated database functionality without the database yet, so check out the code.
 
-After following these steps, you should have a working demo from the code I wrote. Try clicking a few times to update the counter and then
-reload the page - the value should remain. Now look through the code a bit to familiarize yourself with it. Please make sure that when you commit, before you push,
-only the files you want to push were changed and no more. If this is not the case, please add any extra weird files to the .gitignore file or let me know and 
-I can do it.
