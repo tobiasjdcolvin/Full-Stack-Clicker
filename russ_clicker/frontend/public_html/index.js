@@ -2,12 +2,13 @@ const requestObj = new XMLHttpRequest();
 const loginText = document.getElementById("loginTxt");
 const errorHeader = document.getElementById("errorHeader");
 
+let testNamesDatabase = ["username", "Tobinski", "Slurricane"] // TEMPORARY TEST
+
 
 function handleLogin() {
     let username = loginText.value;
 
-    if (username == "username") { // TODO: use database for this to check if username exists in database
-
+    if (testNamesDatabase.includes(username)) { // TODO: use database for this to check if username exists in database
 
         let myUrl = `/setUsername/${username}`;
 

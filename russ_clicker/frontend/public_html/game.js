@@ -5,7 +5,7 @@ const playerScoreEl = document.getElementById("playerScore");
 let username = "";
 
 function initializePage() {
-    getScoreInit(); // this function then calls getUsernameInit when done
+    getUsernameInit(); // this function in turn calls getScoreInit()
 }
 
 initializePage();
@@ -22,6 +22,7 @@ function getUsernameInit() {
         if (this.readyState == XMLHttpRequest.DONE) {
             if (requestObj.status === 200) {
                 username = this.responseText;
+                getScoreInit(username);
             } else {
                 // something went wrong
                 console.log(requestObj.responseText);
@@ -33,12 +34,13 @@ function getUsernameInit() {
 }
 
 
-function getScoreInit() {
+function getScoreInit(username) {
     // gets score initially when page loads up
-    let myNewUrl = "/getScore";
+    let myNewUrl = `/getScore/${username}`;
 
     requestObj.open("GET", myNewUrl);
     requestObj.send();
+
 
     // this is the same logic as given to us in the slides
     requestObj.onreadystatechange = function () {
@@ -52,9 +54,6 @@ function getScoreInit() {
 
         }
     };
-
-    getUsernameInit();
-
 }
 
 
