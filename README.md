@@ -21,7 +21,9 @@ The steps for developing a new feature are as follows:
 3. Make a new branch for the feature you are working on, by running `git branch branch_name` (replace "branch_name" with what you want to name your branch, probably something related to the feature you want to implement).
 4. Now do `git checkout branch_name` to move to the branch you just created.
 5. You can make sure you are in the correct branch by running `git status`. You should also see the name of your current branch on the bottom of the Source Control tab on the the left of your screen.
-6. 
+6. Now you can work on your feature! 
+7. After you make your commits, under the Source Control tab, there should be a button that says "Publish Branch". This will add your new branch to the remote repository, but will not merge it into the main branch yet. This is good, so go ahead and do that.  
+8. 
 
 
 
