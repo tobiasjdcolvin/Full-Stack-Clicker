@@ -1,18 +1,26 @@
 const express = require('express');
 const app = express();
 const port = 50001;
+let USERNAME = ""; // not temporary, we are using this in server.js
 
+
+
+
+// WITHIN THE LINES WILL BE REPLACED BY DATABASE
+// ------------------------------------------------------------------------------------
 let SCORE = { // TEMPORARY - will retrieve from database in future, using USERNAME
     "username": 0,
     "Tobinski": 0,
     "Slurricane": 0,
 };
+let testNamesDatabase = ["username", "Tobinski", "Slurricane"] // TEMPORARY - will be replaced with requests to database 
+// ------------------------------------------------------------------------------------
 
-let USERNAME = "";
+
+
 
 // statically serves files within public_html directory
 app.use(express.static("../frontend/public_html"));
-
 
 // auto-increments scores for those who have the upgrade
 setInterval(() => {
@@ -24,8 +32,7 @@ setInterval(() => {
 
 
 
-// API Endpoints:
-
+// API Endpoints below:
 app.get("/setUsername/:username", (req, res) => {
     USERNAME = req.params.username; // will use this with database in future to look up individual player scores
 
@@ -34,13 +41,28 @@ app.get("/setUsername/:username", (req, res) => {
     res.send("");
 })
 
+app.get("/checkUsername/:username", (req, res) => {
+    USERNAME = req.params.username; // will use this with database in future to look up individual player scores
+    let usernameExists = "false";
+
+    console.log(USERNAME);
+    console.log(testNamesDatabase.includes("username"));
+    console.log(testNamesDatabase.includes(USERNAME));
+
+    if (testNamesDatabase.includes(USERNAME)) {
+        usernameExists = "true";
+    }
+
+    res.setHeader('Content-Type', 'text/plain');
+    res.statusCode = 200;
+    res.send(usernameExists);
+})
 
 app.get("/getUsername", (req, res) => {
     res.setHeader('Content-Type', 'text/plain');
     res.statusCode = 200;
     res.send(`${USERNAME}`);
 })
-
 
 app.get("/playerClick/:username", (req, res) => {
     let username = req.params.username; // will use this with database in future to look up individual player scores
