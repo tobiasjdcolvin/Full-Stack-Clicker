@@ -23,7 +23,11 @@ The steps for developing a new feature are as follows:
 5. You can make sure you are in the correct branch by running `git status`. You should also see the name of your current branch on the bottom of the Source Control tab on the the left of your screen.
 6. Now you can work on your feature! 
 7. After you make your commits, under the Source Control tab, there should be a button that says "Publish Branch". This will add your new branch to the remote repository, but will not merge it into the main branch yet. This is good, so go ahead and do that.  
-8. 
+8. Now make your way to this GitHub repository. Around the top left of the repository, you should see an icon with 3 circles and two lines connecting them, with "main" next to it. Click on this, and under "Branches", select your new branch that you just added to the repo.
+9. On the right hand side, there should be a button that says "Contribute". Click on that, and then on "Open pull request". 
+10. Describe the feature you are trying to merge, and then hit "Create pull request". 
+11. You now may have to resolve some merge conflicts, or you might not. We will practice this. Eventually, you will be able to "Merge pull request", and then "Confirm merge". 
+12. You now should have succesfuly merged your feature to the main branch! 
 
 
 
