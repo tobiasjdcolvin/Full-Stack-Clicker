@@ -4,8 +4,8 @@ const port = 50001;
 
 let SCORE = { // TEMPORARY - will retrieve from database in future, using USERNAME
     "username": 0,
-    "Tobinski": 9999,
-    "Slurricane": 420,
+    "Tobinski": 0,
+    "Slurricane": 0,
 };
 
 let USERNAME = "";
