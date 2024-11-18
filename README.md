@@ -12,5 +12,7 @@
 8. Copy and paste the url it gives you into your browser, this should bring you to index.html, which is the login page.
 9. For now, login with the username "username", "Tobinski", or "Slurricane", I have simulated database functionality without the database yet, so check out the code.
 
-THIS IS TEST TO FIGURE OUT BRANCHING MERGE CONFLICT HERE!
+
+THIS IS TEST TO FIGURE OUT BRANCHING MERGE CONFLICT HERE! (NOW UPDATED)
+
 
