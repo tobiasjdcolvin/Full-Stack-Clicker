@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
 const port = 50001;
+let USERNAME = "";
 
 
 
-let USERNAME = ""; // this might be a temporary solution I am now realizing
 
 // WITHIN THE LINES WILL BE REPLACED BY DATABASE
 // ------------------------------------------------------------------------------------
