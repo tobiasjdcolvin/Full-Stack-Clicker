@@ -6,7 +6,7 @@ const titleName = document.getElementById("titleName");
 let username = "";
 
 function initializePage() {
-    getUsernameInit(); // this function in turn calls getScoreInit()
+    getUsernameInit(); // getUsernameInit() has getScoreInit() as a callback
 }
 
 initializePage();
@@ -24,6 +24,7 @@ function getUsernameInit() {
             if (requestObj.status === 200) {
                 username = this.responseText;
                 titleName.textContent = username;
+                // callback
                 getScoreInit(username);
             } else {
                 // something went wrong
@@ -36,8 +37,34 @@ function getUsernameInit() {
 }
 
 
+// runs after getUsernameInit() finishes
 function getScoreInit(username) {
-    // gets score initially when page loads up
+    // gets score initially when game starts up, after username is known
+    let myNewUrl = `/getScore/${username}`;
+
+    requestObj.open("GET", myNewUrl);
+    requestObj.send();
+
+
+    // this is the same logic as given to us in the slides
+    requestObj.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (requestObj.status === 200) {
+                playerScoreEl.textContent = `Score: ${this.responseText}`;
+                // callback
+                startAutoCheckingScore();
+            } else {
+                // something went wrong
+                console.log(requestObj.responseText);
+            }
+
+        }
+    };
+}
+
+// just like getScoreInit(), but without the callback
+function getScore(username) {
+    // gets score of username
     let myNewUrl = `/getScore/${username}`;
 
     requestObj.open("GET", myNewUrl);
@@ -59,6 +86,18 @@ function getScoreInit(username) {
 }
 
 
+// runs right after getScoreInit() finishes
+function startAutoCheckingScore() {
+    setInterval(() => {
+        getScore(username); // just in case user has auto-score updating upgrade
+
+    }, 500);
+
+}
+
+
+
+// this sends request to backend to increment score in database
 function updateScore() {
     // animation
     russImg.style.scale = 1.05;

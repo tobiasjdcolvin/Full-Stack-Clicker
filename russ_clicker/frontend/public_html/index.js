@@ -2,7 +2,7 @@ const requestObj = new XMLHttpRequest();
 const loginText = document.getElementById("loginTxt");
 const errorHeader = document.getElementById("errorHeader");
 
-let testNamesDatabase = ["username", "Tobinski", "Slurricane"] // TEMPORARY TEST
+let testNamesDatabase = ["username", "Tobinski", "Slurricane"] // TEMPORARY - will be replaced with requests to database 
 
 
 function handleLogin() {
@@ -10,6 +10,9 @@ function handleLogin() {
 
     if (testNamesDatabase.includes(username)) { // TODO: use database for this to check if username exists in database
 
+        // the following will set the username variable in server.js before 
+        // re-routing to game.js. Right when game.js is loaded, it accesses the username
+        // variable from server.js, so that is why this is important.
         let myUrl = `/setUsername/${username}`;
 
         requestObj.open("GET", myUrl);

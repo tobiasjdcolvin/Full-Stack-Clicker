@@ -13,6 +13,19 @@ let USERNAME = "";
 // statically serves files within public_html directory
 app.use(express.static("../frontend/public_html"));
 
+
+// auto-increments scores for those who have the upgrade
+setInterval(() => {
+    // TODO: when database is up, check which users have upgrade
+    // here, lets just say Slurricane has the upgrade
+    SCORE["Slurricane"] += 1; // this will be request to database too
+}, 1000);
+
+
+
+
+// API Endpoints:
+
 app.get("/setUsername/:username", (req, res) => {
     USERNAME = req.params.username; // will use this with database in future to look up individual player scores
 
