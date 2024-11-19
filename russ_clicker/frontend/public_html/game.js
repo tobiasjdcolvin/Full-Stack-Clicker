@@ -1,3 +1,5 @@
+// const { URLSearchParams } = require("url");
+
 const requestObj = new XMLHttpRequest();
 const russImg = document.getElementById("russImg");
 const plusImg = document.getElementById("plusImg");
@@ -5,40 +7,24 @@ const playerScoreEl = document.getElementById("playerScore");
 const titleName = document.getElementById("titleName");
 let username = "";
 
+let parameters = new URLSearchParams(window.location.search);
+username = parameters.get('username');
+
+console.log(username);
+
 function initializePage() {
-    getUsernameInit(); // getUsernameInit() has getScoreInit() as a callback
+    getScoreInit(username); // getUsernameInit() has getScoreInit() as a callback
 }
 
 initializePage();
 
-function getUsernameInit() {
-    // gets username initially when page loads up
-    let myUrl = "/getUsername";
-
-    requestObj.open("GET", myUrl);
-    requestObj.send();
-
-    // this is the same logic as given to us in the slides
-    requestObj.onreadystatechange = function () {
-        if (this.readyState == XMLHttpRequest.DONE) {
-            if (requestObj.status === 200) {
-                username = this.responseText;
-                titleName.textContent = username;
-                // callback
-                getScoreInit(username);
-            } else {
-                // something went wrong
-                console.log(requestObj.responseText);
-            }
-
-        }
-    };
-
-}
 
 
 // runs after getUsernameInit() finishes
 function getScoreInit(username) {
+    // Moved title initialization here
+    titleName.textContent = username;
+
     // gets score initially when game starts up, after username is known
     let myNewUrl = `/getScore/${username}`;
 

@@ -33,15 +33,6 @@ setInterval(() => {
 
 // API Endpoints below:
 
-// sets the USERNAME variable 
-app.get("/setUsername/:username", (req, res) => {
-    USERNAME = req.params.username;
-
-    res.setHeader('Content-Type', 'text/plain');
-    res.statusCode = 200;
-    res.send("");
-})
-
 // checks if username is exists in database
 app.get("/checkUsername/:username", (req, res) => {
     let usernameExists = "false";
@@ -55,19 +46,13 @@ app.get("/checkUsername/:username", (req, res) => {
     res.send(usernameExists);
 })
 
-// gets the USERNAME variable
-app.get("/getUsername", (req, res) => {
-    res.setHeader('Content-Type', 'text/plain');
-    res.statusCode = 200;
-    res.send(`${USERNAME}`);
-})
-
 // increments players score in database
 app.get("/playerClick/:username", (req, res) => {
     let username = req.params.username; // will use this with database in future to look up individual player scores
     SCORE[username] += 1; // will be more complicated with database
     playerScore = SCORE[username]; // retrieve from database after updating val
 
+    console.log(`Score for user ${username} incremented to ${SCORE[username]}`)
     res.setHeader('Content-Type', 'text/plain');
     res.statusCode = 200;
     res.send(`${playerScore}`);
