@@ -54,14 +54,17 @@ main();
 
 // auto-increments scores for those who have the upgrade
 setInterval(async () => {
-    // TODO: check which users have the auto upgrade
+    // check which users have the auto upgrade, with value of 1 (done this way so
+    // we can reuse the code for more upgrades that are more complex)
+    let users = await UserObj.find({ "upgrades.auto": 1 });
 
-    // here, lets just say Slurricane has the upgrade
-    // this is just for testing, only update those who have
-    // the upgrade eventually
-    let slurricaneCurrUser = await UserObj.findOne({ username: "Slurricane" });
-    slurricaneCurrUser.score += 1;
-    await slurricaneCurrUser.save();
+
+    // for those who do, increment their score
+    for (let user of users) {
+        user.score += 1;
+        await user.save();
+    }
+
 }, 1000);
 
 
