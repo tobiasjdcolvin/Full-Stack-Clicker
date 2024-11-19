@@ -27,19 +27,19 @@ async function main() {
         let tobinskiUser = new UserObj({
             username: "Tobinski",
             score: 0,
-            multiplier: 0,
+            multiplier: 1,
             upgrades: {},
         });
         let slurricaneUser = new UserObj({
             username: "Slurricane",
             score: 0,
-            multiplier: 0,
-            upgrades: {},
+            multiplier: 1,
+            upgrades: { auto: 1 },
         });
         let dracianUser = new UserObj({
             username: "Dracian",
             score: 0,
-            multiplier: 0,
+            multiplier: 1,
             upgrades: {},
         });
         await tobinskiUser.save();
@@ -52,24 +52,27 @@ async function main() {
 main();
 
 
-
-/*
-
 // auto-increments scores for those who have the upgrade
-setInterval(() => {
-    // TODO: when database is up, check which users have upgrade
+setInterval(async () => {
+    // TODO: check which users have the auto upgrade
 
     // here, lets just say Slurricane has the upgrade
-    SCORE["Slurricane"] += 1; // this will be request to database too
+    // this is just for testing, only update those who have
+    // the upgrade eventually
+    let slurricaneCurrUser = await UserObj.findOne({ username: "Slurricane" });
+    slurricaneCurrUser.score += 1;
+    await slurricaneCurrUser.save();
 }, 1000);
+
 
 // API Endpoints below:
 
 // checks if username is exists in database
-app.get("/checkUsername/:username", (req, res) => {
-    let usernameExists = "false";
+app.get("/checkUsername/:username", async (req, res) => {
 
-    if (testNamesDatabase.includes(req.params.username)) {
+    let usernameExists = await UserObj.exists({ username: req.params.username });
+
+    if (usernameExists) {
         usernameExists = "true";
     }
 
@@ -79,28 +82,33 @@ app.get("/checkUsername/:username", (req, res) => {
 })
 
 // increments players score in database
-app.get("/playerClick/:username", (req, res) => {
-    let username = req.params.username; // will use this with database in future to look up individual player scores
-    SCORE[username] += 1; // will be more complicated with database
-    playerScore = SCORE[username]; // retrieve from database after updating val
+app.get("/playerClick/:username", async (req, res) => {
+    let username = req.params.username;
+    let currUser = await UserObj.findOne({ username: username });
 
-    console.log(`Score for user ${username} incremented to ${SCORE[username]}`)
+    currUser.score += currUser.multiplier;
+    await currUser.save();
+    let playerScore = currUser.score;
+
     res.setHeader('Content-Type', 'text/plain');
     res.statusCode = 200;
     res.send(`${playerScore}`);
 })
 
 // gets players score from database
-app.get("/getScore/:username", (req, res) => {
-    let playerScore = SCORE[req.params.username]; // look up username in database to get associated score
+app.get("/getScore/:username", async (req, res) => {
+    let username = req.params.username;
+    let currUser = await UserObj.findOne({ username: username });
+    let playerScore = currUser.score;
 
     res.setHeader('Content-Type', 'text/plain');
     res.statusCode = 200;
     res.send(`${playerScore}`);
 })
 
-*/
 
+// statically serves files within public_html directory
+app.use(express.static("../frontend/public_html"));
 
 app.listen(port, () => {
     console.log(`\nServer running at 127.0.0.1:${port}`);

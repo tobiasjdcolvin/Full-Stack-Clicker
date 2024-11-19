@@ -4,13 +4,19 @@
 ## Get Started:
 1. Clone this repository to your local machine
 2. `cd` into the **Full-Stack-Clicker** directory
-3. Run `npm install express` within the **Full-Stack-Clicker**
+3. `cd` into the **russ_clicker** directory
+4. `cd` into the **backend** directory
+5. Run `npm install express` within the **backend**
     directory - don't worry about the node files, I have put them in the .gitignore
-5. `cd` into the **russ_clicker** directory
-6. `cd` into the **backend** directory
-7. Run `node server.js`
-8. Copy and paste the ip it gives you into your browser, this should bring you to index.html, which is the login page.
-9. For now, login with the username "username", "Tobinski", or "Slurricane", registering users is not yet implemented.
+6. Run `node server.js`
+7. Make sure you have MongoDB Community installed, and if using windows, install mongosh too,
+because it is not automatically included. Instructions for all of this [here](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/)
+8. Start up the database if on Mac using `brew services start mongodb-community@8.0` and stop using `brew services stop mongodb-community@8.0`. If on Windows:
+    1. Open the command interpreter as an Administrator. Then, If you haven't already, create the database directory by doing `cd C:\` and then `md "\data\db"`.
+    2. Run mongod.exe by doing `C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --dbpath="c:\data\db`.
+    3. If done correctly, you should see `[initandlisten] waiting for connections`.
+9. Copy and paste the ip you got from starting the node server into your browser, this should bring you to index.html, which is the login page.
+10. For now, login with the username "Dracian", "Tobinski", or "Slurricane" for testing.
 
 ## How To Contribute:
 As a rule of thumb, never start new code while you are on the main branch.
@@ -27,7 +33,6 @@ The steps for developing a new feature are as follows:
 9. On the right hand side, there should be a button that says "Contribute". Click on that, and then on "Open pull request". 
 10. Describe the feature you are trying to merge, and then hit "Create pull request". 
 11. You now may have to resolve some merge conflicts, or you might not. We will practice this. Eventually, you will be able to "Merge pull request", and then "Confirm merge". 
-12. You now should have succesfuly merged your feature to the main branch! 
 
 
 
