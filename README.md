@@ -17,7 +17,7 @@ because it is not automatically included. Instructions for all of this [here](ht
     3. If done correctly, you should see `[initandlisten] waiting for connections`.
 9. Copy and paste the ip you got from starting the node server into your browser, this should bring you to index.html, which is the login page.
 10. For now, login with the username "Dracian", "Tobinski", or "Slurricane" for testing.
-11. Monitor the database frequently and carefully using **mongosh** if you are working with it. `db.getCollection('userobjs').deleteMany({})` to delete all user documents in the userobjs collection is useful, `db.getCollection('userobjs').countDocuments()` for counting how many documents are in the userobjs collection is also useful.
+11. Monitor the database frequently and carefully using **mongosh** if you are working with it. To do this, after you start up the database, run `mongosh mongodb://127.0.0.1/russ_clicker_db`. Additionally once you are in **mongosh**, `db.getCollection('userobjs').deleteMany({})` to delete all user documents in the userobjs collection is useful, `db.getCollection('userobjs').countDocuments()` for counting how many documents are in the userobjs collection is also useful.
 
 ## How To Contribute:
 As a rule of thumb, never start new code while you are on the main branch.
