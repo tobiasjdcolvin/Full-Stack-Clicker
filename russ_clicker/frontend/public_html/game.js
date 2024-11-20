@@ -1,5 +1,3 @@
-// const { URLSearchParams } = require("url");
-
 const requestObj = new XMLHttpRequest();
 const russImg = document.getElementById("russImg");
 const plusImg = document.getElementById("plusImg");
@@ -10,7 +8,6 @@ let username = "";
 let parameters = new URLSearchParams(window.location.search);
 username = parameters.get('username');
 
-console.log(username);
 
 function initializePage() {
     getScoreInit(username); // getUsernameInit() has getScoreInit() as a callback
@@ -18,6 +15,15 @@ function initializePage() {
 
 initializePage();
 
+
+function goToLeaderboard() {
+    window.location.href = `./leaderboard.html?username=${username}`; // this changes the url using the window object
+}
+
+
+function logout() {
+    window.location.href = "./index.html" // this changes the url using the window object
+}
 
 
 // runs after getUsernameInit() finishes

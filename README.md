@@ -1,7 +1,8 @@
 # Russ Clicker
-### A full-stack clicker game with a leaderboard, final project for csc337
+## A full-stack clicker game with a leaderboard, final project for csc337.
+### "Russ" is the name of our professor, so we made the game based on him (we made a pixel art version of him).
 
-## Get Started:
+## Getting Started (For My Teammates):
 1. Clone this repository to your local machine
 2. `cd` into the **Full-Stack-Clicker** directory
 3. `cd` into the **russ_clicker** directory
@@ -19,7 +20,7 @@ because it is not automatically included. Instructions for all of this [here](ht
 10. For now, login with the username "Dracian", "Tobinski", or "Slurricane" for testing.
 11. Monitor the database frequently and carefully using **mongosh** if you are working with it. To do this, after you start up the database, run `mongosh mongodb://127.0.0.1/russ_clicker_db`. Additionally once you are in **mongosh**, `db.getCollection('userobjs').deleteMany({})` to delete all user documents in the userobjs collection is useful, `db.getCollection('userobjs').countDocuments()` for counting how many documents are in the userobjs collection is also useful.
 
-## How To Contribute:
+## How To Contribute (For My Teammates):
 As a rule of thumb, never start new code while you are on the main branch.
 The steps for developing a new feature are as follows:
 
