@@ -84,6 +84,23 @@ app.get("/checkUsername/:username", async (req, res) => {
     res.send(usernameExists);
 })
 
+// adds a user to the database
+app.get("/addUser/:username", async (req, res) => {
+    let username = req.params.username;
+
+    let newUser = new UserObj({
+        username: `${username}`,
+        score: 0,
+        multiplier: 1,
+        upgrades: {},
+    });
+    await newUser.save();
+
+    res.setHeader('Content-Type', 'text/plain');
+    res.statusCode = 200;
+    res.send("");
+})
+
 // increments players score in database
 app.get("/playerClick/:username", async (req, res) => {
     let username = req.params.username;
