@@ -19,3 +19,25 @@ th {
     border: solid 2px rgb(220, 220, 198);
     padding: 6px;
 }
+
+button {
+    color: beige;
+    background-color: rgb(153, 126, 93);
+    border-color: rgb(131, 108, 80);
+    border-radius: 4px;
+}
+
+#back,
+#logout {
+    position: fixed;
+    top: 2px;
+    height: 40px;
+}
+
+#back {
+    left: 1px;
+}
+
+#logout {
+    left: 110px;
+}

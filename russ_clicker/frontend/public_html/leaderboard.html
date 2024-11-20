@@ -75,14 +75,22 @@
     <br>
 
     <table>
-        <h3>You</h3>
+        <h2>You:</h2>
         <tr>
-            <td id="youScore">#?</td>
+            <th>Rank</th>
+            <th>Username</th>
+            <th>Score</th>
+        </tr>
+        <tr>
+            <td id="youRank">#?</td>
             <td id="youUsername">------------</td>
             <td id="youScore">------------</td>
         </tr>
 
     </table>
+
+    <button id="back" onclick="goBack()">Back To Game</button>
+    <button id="logout" onclick="logout()">Logout</button>
 
     <script src="./leaderboard.js" async defer></script>
 </body>

@@ -16,6 +16,15 @@ function initializePage() {
 initializePage();
 
 
+function goToLeaderboard() {
+    window.location.href = `./leaderboard.html?username=${username}`; // this changes the url using the window object
+}
+
+
+function logout() {
+    window.location.href = "./index.html" // this changes the url using the window object
+}
+
 
 // runs after getUsernameInit() finishes
 function getScoreInit(username) {
