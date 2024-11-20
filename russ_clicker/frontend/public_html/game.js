@@ -1,5 +1,3 @@
-// const { URLSearchParams } = require("url");
-
 const requestObj = new XMLHttpRequest();
 const russImg = document.getElementById("russImg");
 const plusImg = document.getElementById("plusImg");
@@ -10,7 +8,6 @@ let username = "";
 let parameters = new URLSearchParams(window.location.search);
 username = parameters.get('username');
 
-console.log(username);
 
 function initializePage() {
     getScoreInit(username); // getUsernameInit() has getScoreInit() as a callback

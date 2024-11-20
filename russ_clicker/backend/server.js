@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const { stringify } = require('querystring');
 const mongoURL = "mongodb://127.0.0.1/russ_clicker_db";
 const app = express();
 const port = 50001;
@@ -124,6 +125,17 @@ app.get("/getScore/:username", async (req, res) => {
     res.setHeader('Content-Type', 'text/plain');
     res.statusCode = 200;
     res.send(`${playerScore}`);
+})
+
+// gets all players from database
+app.get("/getPlayers", async (req, res) => {
+    // sort players by score from most to least (in reverse order, hence the -1).
+    let players = await UserObj.find({}).sort({ 'score': -1 });
+
+    // send in json format
+    res.setHeader('Content-Type', 'application/json');
+    res.statusCode = 200;
+    res.send(players);
 })
 
 
