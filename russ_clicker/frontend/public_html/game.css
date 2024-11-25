@@ -40,3 +40,41 @@ button {
 #logout {
     left: 1px;
 }
+
+#unlocks {
+    border-radius: 6px;
+    background-color: rgb(166, 138, 102);
+    width: 160px;
+    height: 650px;
+    position: absolute;
+    left: 100px;
+    top: 100px;
+}
+
+#upgrades {
+    border-radius: 6px;
+    background-color: rgb(166, 138, 102);
+    width: 160px;
+    height: 650px;
+    position: absolute;
+    right: 100px;
+    top: 100px;
+}
+
+#bronze,
+#silver,
+#gold {
+    width: 30px;
+    display: inline-block;
+}
+
+#offline,
+#ten,
+#hundred {
+    height: 65px;
+}
+
+#leaderboardButton {
+    height: 55px;
+    width: 100px;
+}
