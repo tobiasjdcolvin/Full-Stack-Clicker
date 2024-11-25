@@ -9,13 +9,13 @@
 4. `cd` into the **backend** directory
 5. Run `npm install express` within the **backend**
     directory - don't worry about the node files, I have put them in the .gitignore
-6. Run `node server.js`
-7. Make sure you have MongoDB Community installed, and if using windows, install mongosh too,
+6. Make sure you have MongoDB Community installed, and if using windows, install mongosh too,
 because it is not automatically included. Instructions for all of this [here](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/)
-8. Start up the database if on Mac using `brew services start mongodb-community@8.0` and stop using `brew services stop mongodb-community@8.0`. If on Windows:
+7. Start up the database if on Mac using `brew services start mongodb-community@8.0` and stop using `brew services stop mongodb-community@8.0`. If on Windows:
     1. Open the command interpreter as an Administrator. Then, If you haven't already, create the database directory by doing `cd C:\` and then `md "\data\db"`.
     2. Run mongod.exe by doing `C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --dbpath="c:\data\db`.
     3. If done correctly, you should see `[initandlisten] waiting for connections`.
+8. Run `node server.js`
 9. Copy and paste the ip you got from starting the node server into your browser, this should bring you to index.html, which is the login page.
 10. For now, login with the username "Dracian", "Tobinski", or "Slurricane" for testing.
 11. Monitor the database frequently and carefully using **mongosh** if you are working with it. To do this, after you start up the database, run `mongosh mongodb://127.0.0.1/russ_clicker_db`. Additionally once you are in **mongosh**, `db.getCollection('userobjs').deleteMany({})` to delete all user documents in the userobjs collection is useful, `db.getCollection('userobjs').countDocuments()` for counting how many documents are in the userobjs collection is also useful.
