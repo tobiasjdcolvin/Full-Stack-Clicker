@@ -15,13 +15,13 @@ because it is not automatically included. Instructions for all of this [here](ht
     1. Open the command interpreter as an Administrator. Then, If you haven't already, create the database directory by doing `cd C:\` and then `md "\data\db"`.
     2. Run mongod.exe by doing `C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --dbpath="c:\data\db`.
     3. If done correctly, you should see `[initandlisten] waiting for connections`.
-8. Run `node server.js`
+8. Run `node server.js` within the **backend** directory
 9. Copy and paste the ip you got from starting the node server into your browser, this should bring you to index.html, which is the login page.
-10. For now, login with the username "Dracian", "Tobinski", or "Slurricane" for testing.
+10. You can initially login with the usernames "Dracian", "Tobinski", or "Slurricane" for testing. Feel free to register and login with new usernames, this will add users to your local database.
 11. Monitor the database frequently and carefully using **mongosh** if you are working with it. To do this, after you start up the database, run `mongosh mongodb://127.0.0.1/russ_clicker_db`. Additionally once you are in **mongosh**, `db.getCollection('userobjs').deleteMany({})` to delete all user documents in the userobjs collection is useful, `db.getCollection('userobjs').countDocuments()` for counting how many documents are in the userobjs collection is also useful.
 
 ## How To Contribute (For My Teammates):
-As a rule of thumb, never start new code while you are on the main branch.
+In short: make a seperate branch for whatever new feature you are building, then make a pull request to merge into main when the feature is fully implemented.
 The steps for developing a new feature are as follows:
 
 1. Open up the terminal tab within Visual Studio Code on the bottom while you are in the project directory, also open up the "Source Control" tab on the left.
