@@ -158,11 +158,26 @@ app.get("/checkUsername/:username", async (req, res) => {
 app.get("/addUser/:username", async (req, res) => {
     let username = req.params.username;
 
+    let newUserUnlocks = new UnlocksObj({
+        bronze: 0,
+        silver: 0,
+        gold: 0,
+    })
+    await newUserUnlocks.save();
+
+    let newUserUpgrades = new UpgradesObj({
+        offline: 0,
+        ten: 0,
+        hundred: 0,
+    });
+    await newUserUpgrades.save();
+
     let newUser = new UserObj({
         username: `${username}`,
         score: 0,
         multiplier: 1,
-        upgrades: {},
+        upgrades: newUserUpgrades._id,
+        unlocks: newUserUnlocks._id,
     });
     await newUser.save();
 
