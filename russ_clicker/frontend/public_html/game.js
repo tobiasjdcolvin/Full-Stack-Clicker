@@ -88,6 +88,58 @@ function startAutoCheckingScore() {
 }
 
 
+// this sends a request to the backend to purchase offline point generation
+// for the player if they have the correct amount of points
+function purchaseOffline() {
+    let offlinePurchaseThreshold = 500; // costs 500 points; change if need be
+
+    // gets score of username
+    let getScoreUrl = `/getScore/${username}`;
+
+    requestObj.open("GET", getScoreUrl);
+    requestObj.send();
+
+
+    // this is the same logic as given to us in the slides
+    requestObj.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (requestObj.status === 200) {
+                let currentScore = Number(this.responseText);
+
+                if (currentScore >= offlinePurchaseThreshold) {
+                    purchaseOfflineHelper(offlinePurchaseThreshold);
+                } else {
+                    alert("not enough points");
+                }
+            } else {
+                // something went wrong
+                console.log(requestObj.responseText);
+            }
+
+        }
+    };
+}
+
+// helper function for purchaseOffline(), actually purchases the upgrade 
+function purchaseOfflineHelper(purchaseThreshold) {
+    myUrl = `/purchaseOffline/${username}/${purchaseThreshold}`;
+
+    requestObj.open("GET", myUrl);
+    requestObj.send();
+
+    // this is the same logic as given to us in the slides
+    requestObj.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (requestObj.status === 200) {
+                alert("purchased!");
+            } else {
+                // something went wrong
+                console.log(requestObj.responseText);
+            }
+
+        }
+    };
+}
 
 // this sends request to backend to increment score in database
 function updateScore() {

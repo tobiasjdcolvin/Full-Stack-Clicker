@@ -50,8 +50,8 @@ async function main() {
         await slurricaneUpgrades.save();
 
         let slurricaneUnlocks = new UnlocksObj({
-            bronze: 0,
-            silver: 0,
+            bronze: 1,
+            silver: 1,
             gold: 1,
         })
         await slurricaneUnlocks.save();
@@ -82,7 +82,7 @@ async function main() {
 
         let tobinskiUser = new UserObj({
             username: "Tobinski",
-            score: 0,
+            score: 498,
             multiplier: 1,
             upgrades: tobinskiUpgrades._id,
             unlocks: tobinskiUnlocks._id,
@@ -90,7 +90,7 @@ async function main() {
         await tobinskiUser.save();
 
         let dracianUnlocks = new UnlocksObj({
-            bronze: 0,
+            bronze: 1,
             silver: 1,
             gold: 0,
         })
@@ -198,6 +198,25 @@ app.get("/playerClick/:username", async (req, res) => {
     res.setHeader('Content-Type', 'text/plain');
     res.statusCode = 200;
     res.send(`${playerScore}`);
+})
+
+// purchases offline point generator for player
+app.get("/purchaseOffline/:username/:threshold", async (req, res) => {
+    let username = req.params.username;
+    let pointThreshold = req.params.threshold;
+    let currUser = await UserObj.findOne({ username: username });
+
+    currUser.score -= pointThreshold;
+    await currUser.save();
+    await currUser.populate("upgrades");
+    currUser.upgrades.offline = 1;
+    await currUser.upgrades.save();
+    await currUser.save();
+
+    res.setHeader('Content-Type', 'text/plain');
+    res.statusCode = 200;
+    res.send("");
+
 })
 
 // gets players score from database
