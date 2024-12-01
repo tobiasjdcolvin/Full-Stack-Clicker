@@ -45,26 +45,26 @@ button {
     border-radius: 6px;
     background-color: rgb(166, 138, 102);
     width: 160px;
-    height: 650px;
+    height: 700px;
     position: absolute;
-    left: 100px;
-    top: 100px;
+    left: 150px;
+    top: 60px;
 }
 
 #upgrades {
     border-radius: 6px;
     background-color: rgb(166, 138, 102);
     width: 160px;
-    height: 650px;
+    height: 700px;
     position: absolute;
-    right: 100px;
-    top: 100px;
+    right: 150px;
+    top: 60px;
 }
 
 #bronze,
 #silver,
 #gold {
-    width: 30px;
+    width: 25px;
     display: inline-block;
 }
 
@@ -77,4 +77,9 @@ button {
 #leaderboardButton {
     height: 55px;
     width: 100px;
+}
+
+.upunbutton {
+    width: 90px;
+    height: 20px;
 }
