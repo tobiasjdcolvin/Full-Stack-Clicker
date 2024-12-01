@@ -10,7 +10,7 @@ username = parameters.get('username');
 
 
 function initializePage() {
-    getScoreInit(username); // getUsernameInit() has getScoreInit() as a callback
+    getScoreInit(username);
 }
 
 initializePage();
@@ -26,12 +26,11 @@ function logout() {
 }
 
 
-// runs after getUsernameInit() finishes
 function getScoreInit(username) {
     // Moved title initialization here
     titleName.textContent = username;
 
-    // gets score initially when game starts up, after username is known
+    // gets score initially when game starts up
     let myNewUrl = `/getScore/${username}`;
 
     requestObj.open("GET", myNewUrl);
@@ -43,8 +42,120 @@ function getScoreInit(username) {
         if (this.readyState == XMLHttpRequest.DONE) {
             if (requestObj.status === 200) {
                 playerScoreEl.textContent = `Score: ${this.responseText}`;
-                // callback
+                // callback 
                 startAutoCheckingScore();
+            } else {
+                // something went wrong
+                console.log(requestObj.responseText);
+            }
+
+        }
+    };
+}
+
+
+function equipBronze() {
+    let threshold = 1000 // the point threshold to unlock, feel free to change
+    let myNewUrl = `/equipBronze/${username}/${threshold}`;
+
+    requestObj.open("GET", myNewUrl);
+    requestObj.send();
+
+
+    // this is the same logic as given to us in the slides
+    requestObj.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (requestObj.status === 200) {
+                let result = this.responseText;
+
+                if (result == "true") {
+                    russImg.src = "images/russBronze.png";
+                    alert("equiped");
+                } else {
+                    alert("you do not have enough points");
+                }
+            } else {
+                // something went wrong
+                console.log(requestObj.responseText);
+            }
+
+        }
+    };
+}
+
+
+function equipSilver() {
+    let threshold = 10000 // the point threshold to unlock, feel free to change
+    let myNewUrl = `/equipSilver/${username}/${threshold}`;
+
+    requestObj.open("GET", myNewUrl);
+    requestObj.send();
+
+
+    // this is the same logic as given to us in the slides
+    requestObj.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (requestObj.status === 200) {
+                let result = this.responseText;
+
+                if (result == "true") {
+                    russImg.src = "images/russSilver.png";
+                    alert("equiped");
+                } else {
+                    alert("you do not have enough points");
+                }
+            } else {
+                // something went wrong
+                console.log(requestObj.responseText);
+            }
+
+        }
+    };
+}
+
+function equipGold() {
+    let threshold = 100000 // the point threshold to unlock, feel free to change
+    let myNewUrl = `/equipGold/${username}/${threshold}`;
+
+    requestObj.open("GET", myNewUrl);
+    requestObj.send();
+
+
+    // this is the same logic as given to us in the slides
+    requestObj.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (requestObj.status === 200) {
+                let result = this.responseText;
+
+                if (result == "true") {
+                    russImg.src = "images/russGold.png";
+                    alert("equiped");
+                } else {
+                    alert("you do not have enough points");
+                }
+            } else {
+                // something went wrong
+                console.log(requestObj.responseText);
+            }
+
+        }
+    };
+}
+
+// gets the users currently equiped character version
+// and shows that img
+function getEquipedInit(username) {
+    let myNewUrl = `/getEquiped/${username}`;
+
+    requestObj.open("GET", myNewUrl);
+    requestObj.send();
+
+
+    // this is the same logic as given to us in the slides
+    requestObj.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (requestObj.status === 200) {
+                russImg.src = this.responseText;
             } else {
                 // something went wrong
                 console.log(requestObj.responseText);
@@ -80,6 +191,8 @@ function getScore(username) {
 
 // runs right after getScoreInit() finishes
 function startAutoCheckingScore() {
+    // callback
+    getEquipedInit(username);
     setInterval(() => {
         getScore(username); // just in case user has auto-score updating upgrade
 
@@ -109,7 +222,7 @@ function purchaseOffline() {
                 if (currentScore >= offlinePurchaseThreshold) {
                     purchaseOfflineHelper(offlinePurchaseThreshold);
                 } else {
-                    alert("not enough points");
+                    alert("you do not have enough points");
                 }
             } else {
                 // something went wrong
@@ -131,7 +244,7 @@ function purchaseOfflineHelper(purchaseThreshold) {
     requestObj.onreadystatechange = function () {
         if (this.readyState == XMLHttpRequest.DONE) {
             if (requestObj.status === 200) {
-                alert("purchased!");
+                alert("purchased");
             } else {
                 // something went wrong
                 console.log(requestObj.responseText);
