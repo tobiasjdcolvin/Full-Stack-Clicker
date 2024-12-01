@@ -15,6 +15,7 @@ const UnlocksSchema = new mongoose.Schema({
     bronze: Number,
     silver: Number,
     gold: Number,
+    equiped: String,
 })
 
 const UserSchema = new mongoose.Schema({
@@ -27,6 +28,7 @@ const UserSchema = new mongoose.Schema({
 const UserObj = mongoose.model("UserObj", UserSchema);
 const UpgradesObj = mongoose.model("UpgradesObj", UpgradesSchema);
 const UnlocksObj = mongoose.model("UnlocksObj", UnlocksSchema);
+
 
 // connect to database and initialize stuff
 async function main() {
@@ -53,6 +55,7 @@ async function main() {
             bronze: 1,
             silver: 1,
             gold: 1,
+            equiped: "gold",
         })
         await slurricaneUnlocks.save();
 
@@ -70,6 +73,7 @@ async function main() {
             bronze: 1,
             silver: 0,
             gold: 0,
+            equiped: "bronze",
         })
         await tobinskiUnlocks.save();
 
@@ -93,6 +97,7 @@ async function main() {
             bronze: 1,
             silver: 1,
             gold: 0,
+            equiped: "silver",
         })
         await dracianUnlocks.save();
 
@@ -162,6 +167,7 @@ app.get("/addUser/:username", async (req, res) => {
         bronze: 0,
         silver: 0,
         gold: 0,
+        equiped: "none",
     })
     await newUserUnlocks.save();
 
@@ -205,18 +211,116 @@ app.get("/purchaseOffline/:username/:threshold", async (req, res) => {
     let username = req.params.username;
     let pointThreshold = req.params.threshold;
     let currUser = await UserObj.findOne({ username: username });
-
-    currUser.score -= pointThreshold;
-    await currUser.save();
     await currUser.populate("upgrades");
-    currUser.upgrades.offline = 1;
-    await currUser.upgrades.save();
-    await currUser.save();
+
+    if (currUser.upgrades.offline != 1) {
+        currUser.score -= pointThreshold;
+        await currUser.save();;
+        currUser.upgrades.offline = 1;
+        await currUser.upgrades.save();
+        await currUser.save();
+    }
 
     res.setHeader('Content-Type', 'text/plain');
     res.statusCode = 200;
     res.send("");
 
+})
+
+app.get("/equipBronze/:username/:threshold", async (req, res) => {
+    let username = req.params.username;
+    let threshold = req.params.threshold;
+    let currUser = await UserObj.findOne({ username: username });
+    await currUser.populate("unlocks");
+    let myResponse = "";
+    let currPoints = currUser.score;
+
+    if ((currPoints >= threshold) || (currUser.unlocks.bronze == 1)) {
+        myResponse = "true";
+        currUser.unlocks.equiped = "bronze";
+        await currUser.unlocks.save();
+        await currUser.save();
+    } else {
+        myResponse = "false";
+    }
+
+    res.setHeader('Content-Type', 'text/plain');
+    res.statusCode = 200;
+    res.send(myResponse);
+
+
+})
+
+
+app.get("/equipSilver/:username/:threshold", async (req, res) => {
+    let username = req.params.username;
+    let threshold = req.params.threshold;
+    let currUser = await UserObj.findOne({ username: username });
+    await currUser.populate("unlocks");
+    let myResponse = "";
+    let currPoints = currUser.score;
+
+    if ((currPoints >= threshold) || (currUser.unlocks.silver == 1)) {
+        myResponse = "true";
+        currUser.unlocks.equiped = "silver";
+        await currUser.unlocks.save();
+        await currUser.save();
+    } else {
+        myResponse = "false";
+    }
+
+    res.setHeader('Content-Type', 'text/plain');
+    res.statusCode = 200;
+    res.send(myResponse);
+
+
+})
+
+
+app.get("/equipGold/:username/:threshold", async (req, res) => {
+    let username = req.params.username;
+    let threshold = req.params.threshold;
+    let currUser = await UserObj.findOne({ username: username });
+    await currUser.populate("unlocks");
+    let myResponse = "";
+    let currPoints = currUser.score;
+
+    if ((currPoints >= threshold) || (currUser.unlocks.gold == 1)) {
+        myResponse = "true";
+        currUser.unlocks.equiped = "gold";
+        await currUser.unlocks.save();
+        await currUser.save();
+    } else {
+        myResponse = "false";
+    }
+
+    res.setHeader('Content-Type', 'text/plain');
+    res.statusCode = 200;
+    res.send(myResponse);
+
+
+})
+
+app.get("/getEquiped/:username", async (req, res) => {
+    let username = req.params.username;
+    let currUser = await UserObj.findOne({ username: username });
+    await currUser.populate("unlocks");
+    let equiped = currUser.unlocks.equiped;
+    let myResponse = "";
+
+    if (equiped == "bronze") {
+        myResponse = "images/russBronze.png";
+    } else if (equiped == "silver") {
+        myResponse = "images/russSilver.png";
+    } else if (equiped == "gold") {
+        myResponse = "images/russGold.png";
+    } else {
+        myResponse = "images/russ.png";
+    }
+
+    res.setHeader('Content-Type', 'text/plain');
+    res.statusCode = 200;
+    res.send(myResponse);
 })
 
 // gets players score from database
