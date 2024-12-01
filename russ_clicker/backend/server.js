@@ -5,13 +5,28 @@ const mongoURL = "mongodb://127.0.0.1/russ_clicker_db";
 const app = express();
 const port = 50001;
 
+const UpgradesSchema = new mongoose.Schema({
+    offline: Number,
+    ten: Number,
+    hundred: Number,
+});
+
+const UnlocksSchema = new mongoose.Schema({
+    bronze: Number,
+    silver: Number,
+    gold: Number,
+})
+
 const UserSchema = new mongoose.Schema({
     username: String,
     score: Number,
     multiplier: Number,
-    upgrades: Object,
+    upgrades: { type: mongoose.Schema.Types.ObjectId, ref: "UpgradesObj" },
+    unlocks: { type: mongoose.Schema.Types.ObjectId, ref: "UnlocksObj" },
 });
 const UserObj = mongoose.model("UserObj", UserSchema);
+const UpgradesObj = mongoose.model("UpgradesObj", UpgradesSchema);
+const UnlocksObj = mongoose.model("UnlocksObj", UnlocksSchema);
 
 // connect to database and initialize stuff
 async function main() {
@@ -21,30 +36,80 @@ async function main() {
     // all other users will need to be registered. This is so
     // we developers can test that everything is up and running
 
-    let tobinskiExists = await UserObj.exists({ username: "Tobinski" });
-    // if Tobinski exists, that means Slurricane and Dracian also exist, and the
-    // opposite is true too
-    if (!tobinskiExists) {
-        let tobinskiUser = new UserObj({
-            username: "Tobinski",
-            score: 0,
-            multiplier: 1,
-            upgrades: {},
+    // If Slurricane exists, the other 3 initial users also do, and vice versa
+    let slurricaneExists = await UserObj.exists({ username: "Slurricane" });
+
+    if (!slurricaneExists) {
+
+
+        let slurricaneUpgrades = new UpgradesObj({
+            offline: 1,
+            ten: 0,
+            hundred: 0,
         });
+        await slurricaneUpgrades.save();
+
+        let slurricaneUnlocks = new UnlocksObj({
+            bronze: 0,
+            silver: 0,
+            gold: 1,
+        })
+        await slurricaneUnlocks.save();
+
         let slurricaneUser = new UserObj({
             username: "Slurricane",
             score: 0,
             multiplier: 1,
-            upgrades: { auto: 1 },
+            upgrades: slurricaneUpgrades._id,
+            unlocks: slurricaneUnlocks._id,
         });
+        await slurricaneUser.save();
+
+
+        let tobinskiUnlocks = new UnlocksObj({
+            bronze: 1,
+            silver: 0,
+            gold: 0,
+        })
+        await tobinskiUnlocks.save();
+
+        let tobinskiUpgrades = new UpgradesObj({
+            offline: 0,
+            ten: 0,
+            hundred: 0,
+        });
+        await tobinskiUpgrades.save();
+
+        let tobinskiUser = new UserObj({
+            username: "Tobinski",
+            score: 0,
+            multiplier: 1,
+            upgrades: tobinskiUpgrades._id,
+            unlocks: tobinskiUnlocks._id,
+        });
+        await tobinskiUser.save();
+
+        let dracianUnlocks = new UnlocksObj({
+            bronze: 0,
+            silver: 1,
+            gold: 0,
+        })
+        await dracianUnlocks.save();
+
+        let dracianUpgrades = new UpgradesObj({
+            offline: 0,
+            ten: 0,
+            hundred: 0,
+        });
+        await dracianUpgrades.save();
+
         let dracianUser = new UserObj({
             username: "Dracian",
             score: 0,
             multiplier: 1,
-            upgrades: {},
+            upgrades: dracianUpgrades._id,
+            unlocks: dracianUnlocks._id,
         });
-        await tobinskiUser.save();
-        await slurricaneUser.save();
         await dracianUser.save();
     }
 
@@ -57,16 +122,20 @@ main();
 setInterval(async () => {
     // check which users have the auto upgrade, with value of 1 (done this way so
     // we can reuse the code for more upgrades that are more complex)
-    let users = await UserObj.find({ "upgrades.auto": 1 });
-
-
     // for those who do, increment their score
+
+    let users = await UserObj.find({})
     for (let user of users) {
-        user.score += 1;
-        await user.save();
+        await user.populate("upgrades");
+        if (user.upgrades.offline == 1) {
+            user.score += 1;
+            await user.save();
+        }
     }
 
+
 }, 1000);
+
 
 
 // API Endpoints below:
