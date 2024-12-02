@@ -86,7 +86,7 @@ async function main() {
 
         let tobinskiUser = new UserObj({
             username: "Tobinski",
-            score: 498,
+            score: 49999,
             multiplier: 1,
             upgrades: tobinskiUpgrades._id,
             unlocks: tobinskiUnlocks._id,
@@ -192,6 +192,29 @@ app.get("/addUser/:username", async (req, res) => {
     res.send("");
 })
 
+
+app.get("/getMultiplier/:username", async (req, res) => {
+    let username = req.params.username;
+    let currUser = await UserObj.findOne({ username: username });
+    let myResponse = "";
+    let currMultiplier = currUser.multiplier;
+
+    if (currMultiplier == 10) {
+        myResponse = "images/plusten.png";
+    } else if (currMultiplier == 100) {
+        myResponse = "images/plushundred.png";
+    } else {
+        myResponse = "images/plusone.png";
+    }
+
+
+    res.setHeader('Content-Type', 'text/plain');
+    res.statusCode = 200;
+    res.send(myResponse);
+
+})
+
+
 // increments players score in database
 app.get("/playerClick/:username", async (req, res) => {
     let username = req.params.username;
@@ -215,7 +238,7 @@ app.get("/purchaseOffline/:username/:threshold", async (req, res) => {
 
     if (currUser.upgrades.offline != 1) {
         currUser.score -= pointThreshold;
-        await currUser.save();;
+        await currUser.save();
         currUser.upgrades.offline = 1;
         await currUser.upgrades.save();
         await currUser.save();
@@ -226,6 +249,57 @@ app.get("/purchaseOffline/:username/:threshold", async (req, res) => {
     res.send("");
 
 })
+
+
+app.get("/purchaseTenPoints/:username/:threshold", async (req, res) => {
+    let username = req.params.username;
+    let pointThreshold = req.params.threshold;
+    let currUser = await UserObj.findOne({ username: username });
+    await currUser.populate("upgrades");
+
+    if (currUser.upgrades.ten != 1) {
+        currUser.score -= pointThreshold;
+        currUser.multiplier = 10;
+        await currUser.save();
+        currUser.upgrades.ten = 1;
+        await currUser.upgrades.save();
+        await currUser.save();
+    } else {
+        currUser.multiplier = 10;
+        await currUser.save();
+    }
+
+    res.setHeader('Content-Type', 'text/plain');
+    res.statusCode = 200;
+    res.send("");
+
+})
+
+
+app.get("/purchaseHundredPoints/:username/:threshold", async (req, res) => {
+    let username = req.params.username;
+    let pointThreshold = req.params.threshold;
+    let currUser = await UserObj.findOne({ username: username });
+    await currUser.populate("upgrades");
+
+    if (currUser.upgrades.hundred != 1) {
+        currUser.score -= pointThreshold;
+        currUser.multiplier = 100;
+        await currUser.save();
+        currUser.upgrades.hundred = 1;
+        await currUser.upgrades.save();
+        await currUser.save();
+    } else {
+        currUser.multiplier = 100;
+        await currUser.save();
+    }
+
+    res.setHeader('Content-Type', 'text/plain');
+    res.statusCode = 200;
+    res.send("");
+
+})
+
 
 app.get("/equipBronze/:username/:threshold", async (req, res) => {
     let username = req.params.username;
