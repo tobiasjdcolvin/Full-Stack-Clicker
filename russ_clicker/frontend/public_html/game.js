@@ -222,7 +222,7 @@ function purchaseOffline() {
                 if (currentScore >= offlinePurchaseThreshold) {
                     purchaseOfflineHelper(offlinePurchaseThreshold);
                 } else {
-                    alert("you do not have enough points");
+                    alert("not enough points or already purchased");
                 }
             } else {
                 // something went wrong
@@ -254,8 +254,112 @@ function purchaseOfflineHelper(purchaseThreshold) {
     };
 }
 
+function purchaseTenPoints() {
+    let purchaseThreshold = 5000; // costs 5000 points; change if need be
+
+    // gets score of username
+    let getScoreUrl = `/getScore/${username}`;
+
+    requestObj.open("GET", getScoreUrl);
+    requestObj.send();
+
+
+    // this is the same logic as given to us in the slides
+    requestObj.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (requestObj.status === 200) {
+                let currentScore = Number(this.responseText);
+
+                if (currentScore >= purchaseThreshold) {
+                    purchaseTenPointsHelper(purchaseThreshold);
+                } else {
+                    alert("not enough points or already purchased");
+                }
+            } else {
+                // something went wrong
+                console.log(requestObj.responseText);
+            }
+
+        }
+    };
+}
+
+function purchaseTenPointsHelper(purchaseThreshold) {
+    myUrl = `/purchaseTenPoints/${username}/${purchaseThreshold}`;
+
+    requestObj.open("GET", myUrl);
+    requestObj.send();
+
+    // this is the same logic as given to us in the slides
+    requestObj.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (requestObj.status === 200) {
+                alert("purchased");
+            } else {
+                // something went wrong
+                console.log(requestObj.responseText);
+            }
+
+        }
+    };
+}
+
+
+function purchaseHundredPoints() {
+    let purchaseThreshold = 50000; // costs 50000 points; change if need be
+
+    // gets score of username
+    let getScoreUrl = `/getScore/${username}`;
+
+    requestObj.open("GET", getScoreUrl);
+    requestObj.send();
+
+
+    // this is the same logic as given to us in the slides
+    requestObj.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (requestObj.status === 200) {
+                let currentScore = Number(this.responseText);
+
+                if (currentScore >= purchaseThreshold) {
+                    purchaseHundredPointsHelper(purchaseThreshold);
+                } else {
+                    alert("not enough points or already purchased");
+                }
+            } else {
+                // something went wrong
+                console.log(requestObj.responseText);
+            }
+
+        }
+    };
+}
+
+function purchaseHundredPointsHelper(purchaseThreshold) {
+    myUrl = `/purchaseHundredPoints/${username}/${purchaseThreshold}`;
+
+    requestObj.open("GET", myUrl);
+    requestObj.send();
+
+    // this is the same logic as given to us in the slides
+    requestObj.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (requestObj.status === 200) {
+                alert("purchased");
+            } else {
+                // something went wrong
+                console.log(requestObj.responseText);
+            }
+
+        }
+    };
+}
+
+
+
 // this sends request to backend to increment score in database
-function updateScore() {
+async function updateScore() {
+
     // animation
     russImg.style.scale = 1.05;
     plusImg.style.display = "inline";
@@ -264,7 +368,7 @@ function updateScore() {
     }, 100);
     setTimeout(() => {
         plusImg.style.display = "none";
-    }, 140);
+    }, 100);
 
 
     myUrl = `/playerClick/${username}`;
@@ -286,4 +390,27 @@ function updateScore() {
     };
 
 
+}
+
+function setPlusImg() {
+    // set plusImg to the correct multiplier
+    let myMultiplierUrl = `/getMultiplier/${username}`;
+
+    requestObj.open("GET", myMultiplierUrl);
+    requestObj.send();
+
+    // this is the same logic as given to us in the slides
+    requestObj.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+            if (requestObj.status === 200) {
+                let plusImgPath = this.responseText;
+                plusImg.src = plusImgPath;
+                updateScore();
+            } else {
+                // something went wrong
+                console.log(requestObj.responseText);
+            }
+
+        }
+    };
 }
