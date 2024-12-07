@@ -88,6 +88,12 @@ async function populateTable(userArray) {
 
         scoreI.textContent = `${userArray[i]["score"]}`;
         usernameI.textContent = userArray[i]["username"];
+
+
+        if (usernameI.textContent == username) {
+            document.getElementById("youScore").textContent = `${userArray[i]["score"]}`;
+            document.getElementById("youRank").textContent = `#${i + 1}`;
+        }
     }
     await setTimeout(() => { }, 1000);
     updatePage();
