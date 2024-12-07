@@ -255,7 +255,7 @@ function purchaseOfflineHelper(purchaseThreshold) {
     requestObj.onreadystatechange = function () {
         if (this.readyState == XMLHttpRequest.DONE) {
             if (requestObj.status === 200) {
-                setPopup("Purchased");
+                setPopup("Purchased or already obtained");
             } else {
                 // something went wrong
                 console.log(requestObj.responseText);
@@ -305,7 +305,7 @@ function purchaseTenPointsHelper(purchaseThreshold) {
     requestObj.onreadystatechange = function () {
         if (this.readyState == XMLHttpRequest.DONE) {
             if (requestObj.status === 200) {
-                setPopup("Purchased");
+                setPopup("Purchased, surpassed, or already obtained");
             } else {
                 // something went wrong
                 console.log(requestObj.responseText);
@@ -356,7 +356,7 @@ function purchaseHundredPointsHelper(purchaseThreshold) {
     requestObj.onreadystatechange = function () {
         if (this.readyState == XMLHttpRequest.DONE) {
             if (requestObj.status === 200) {
-                setPopup("Purchased");
+                setPopup("Purchased or already obtained");
             } else {
                 // something went wrong
                 console.log(requestObj.responseText);
