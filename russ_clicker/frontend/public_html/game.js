@@ -3,6 +3,7 @@ const russImg = document.getElementById("russImg");
 const plusImg = document.getElementById("plusImg");
 const playerScoreEl = document.getElementById("playerScore");
 const titleName = document.getElementById("titleName");
+const popup = document.getElementById("popup");
 let username = "";
 
 let parameters = new URLSearchParams(window.location.search);
@@ -23,6 +24,16 @@ function goToLeaderboard() {
 
 function logout() {
     window.location.href = "./index.html" // this changes the url using the window object
+}
+
+
+function closePopup() {
+    popup.style.display = "none";
+}
+
+function setPopup(text) {
+    popup.innerHTML = text + '<button id="popupButton" onclick="closePopup()">Close</button>';
+    popup.style.display = "block";
 }
 
 
@@ -70,9 +81,9 @@ function equipBronze() {
 
                 if (result == "true") {
                     russImg.src = "images/russBronze.png";
-                    alert("equiped");
+                    setPopup("Equipped");
                 } else {
-                    alert("you do not have enough points");
+                    setPopup("Not enough points");
                 }
             } else {
                 // something went wrong
@@ -100,9 +111,9 @@ function equipSilver() {
 
                 if (result == "true") {
                     russImg.src = "images/russSilver.png";
-                    alert("equiped");
+                    setPopup("Equipped");
                 } else {
-                    alert("you do not have enough points");
+                    setPopup("Not enough points");
                 }
             } else {
                 // something went wrong
@@ -129,9 +140,9 @@ function equipGold() {
 
                 if (result == "true") {
                     russImg.src = "images/russGold.png";
-                    alert("equiped");
+                    setPopup("Equipped");
                 } else {
-                    alert("you do not have enough points");
+                    setPopup("Not enough points");
                 }
             } else {
                 // something went wrong
@@ -222,7 +233,7 @@ function purchaseOffline() {
                 if (currentScore >= offlinePurchaseThreshold) {
                     purchaseOfflineHelper(offlinePurchaseThreshold);
                 } else {
-                    alert("not enough points or already purchased");
+                    setPopup("Not enough points");
                 }
             } else {
                 // something went wrong
@@ -244,7 +255,7 @@ function purchaseOfflineHelper(purchaseThreshold) {
     requestObj.onreadystatechange = function () {
         if (this.readyState == XMLHttpRequest.DONE) {
             if (requestObj.status === 200) {
-                alert("purchased");
+                setPopup("Purchased");
             } else {
                 // something went wrong
                 console.log(requestObj.responseText);
@@ -273,7 +284,7 @@ function purchaseTenPoints() {
                 if (currentScore >= purchaseThreshold) {
                     purchaseTenPointsHelper(purchaseThreshold);
                 } else {
-                    alert("not enough points or already purchased");
+                    setPopup("Not enough points");
                 }
             } else {
                 // something went wrong
@@ -294,7 +305,7 @@ function purchaseTenPointsHelper(purchaseThreshold) {
     requestObj.onreadystatechange = function () {
         if (this.readyState == XMLHttpRequest.DONE) {
             if (requestObj.status === 200) {
-                alert("purchased");
+                setPopup("Purchased");
             } else {
                 // something went wrong
                 console.log(requestObj.responseText);
@@ -324,7 +335,7 @@ function purchaseHundredPoints() {
                 if (currentScore >= purchaseThreshold) {
                     purchaseHundredPointsHelper(purchaseThreshold);
                 } else {
-                    alert("not enough points or already purchased");
+                    setPopup("Not enough points");
                 }
             } else {
                 // something went wrong
@@ -345,7 +356,7 @@ function purchaseHundredPointsHelper(purchaseThreshold) {
     requestObj.onreadystatechange = function () {
         if (this.readyState == XMLHttpRequest.DONE) {
             if (requestObj.status === 200) {
-                alert("purchased");
+                setPopup("Purchased");
             } else {
                 // something went wrong
                 console.log(requestObj.responseText);
