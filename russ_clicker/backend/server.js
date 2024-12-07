@@ -257,16 +257,15 @@ app.get("/purchaseTenPoints/:username/:threshold", async (req, res) => {
     let currUser = await UserObj.findOne({ username: username });
     await currUser.populate("upgrades");
 
-    if (currUser.upgrades.ten != 1) {
-        currUser.score -= pointThreshold;
-        currUser.multiplier = 10;
-        await currUser.save();
-        currUser.upgrades.ten = 1;
-        await currUser.upgrades.save();
-        await currUser.save();
-    } else {
-        currUser.multiplier = 10;
-        await currUser.save();
+    if (currUser.upgrades.hundred != 1) {
+        if (currUser.upgrades.ten != 1) {
+            currUser.score -= pointThreshold;
+            currUser.multiplier = 10;
+            await currUser.save();
+            currUser.upgrades.ten = 1;
+            await currUser.upgrades.save();
+            await currUser.save();
+        }
     }
 
     res.setHeader('Content-Type', 'text/plain');
