@@ -17,7 +17,7 @@ because it is not automatically included. Instructions for all of this [here](ht
     3. If done correctly, you should see `[initandlisten] waiting for connections`.
 8. Run `node server.js` within the **backend** directory.
 9. Copy and paste the ip you got from starting the node server into your browser, this should bring you to index.html, which is the login page.
-10. You can initially login with the usernames "Dracian", "Tobinski", or "Slurricane" for testing. Feel free to register and login with new usernames, this will add users to your local database.
+10. You can initially login with the username "pointcollector" and email "pointcollector@gmail.com" for testing. Feel free to register and login with new usernames, this will add users to your local database.
 11. Monitor the database frequently and carefully using **mongosh** if you are working with it. To do this, after you start up the database, run `mongosh mongodb://127.0.0.1/russ_clicker_db`. Additionally once you are in **mongosh**, `db.getCollection('userobjs').deleteMany({})` to delete all user documents in the userobjs collection is useful, `db.getCollection('userobjs').countDocuments()` for counting how many documents are in the userobjs collection is also useful.
 
 ## How To Contribute (For My Teammates):
@@ -34,7 +34,7 @@ The steps for developing a new feature are as follows:
 8. Now make your way to this GitHub repository. Around the top left of the repository, you should see an icon with 3 circles and two lines connecting them, with "main" next to it. Click on this, and under "Branches", select your new branch that you just added to the repo.
 9. On the right hand side, there should be a button that says "Contribute". Click on that, and then on "Open pull request". 
 10. Describe the feature you are trying to merge, and then hit "Create pull request". 
-11. You now may have to resolve some merge conflicts, or you might not. We will practice this. Eventually, you will be able to "Merge pull request", and then "Confirm merge". 
+11. You now may have to resolve some merge conflicts, or you might not. We will practice this. Let the rest of us know when you have created a pull request so we can all go over the code and make sure everything is good, then we will merge.  
 
 
 
