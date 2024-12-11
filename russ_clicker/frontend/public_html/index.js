@@ -1,27 +1,30 @@
 const requestObj = new XMLHttpRequest();
 const loginText = document.getElementById("loginTxt");
 const registerText = document.getElementById("registerTxt");
+const loginEmailText = document.getElementById("loginEmailTxt");
+const registerEmailText = document.getElementById("registerEmailTxt");
 const errorHeader = document.getElementById("errorHeader");
 
 
 async function handleLogin(usernameExists) {
     let username = loginText.value;
 
-    if (usernameExists == "true") {
+    if (usernameExists == "truetrue") {
         window.location.href = `./game.html?username=${username}`; // this changes the url using the window object
     } else {
-        errorHeader.textContent = "Username Not Found, Please Try Again.";
+        errorHeader.textContent = "Username Not Found Or Incorrect Email, Please Try Again.";
     }
 
 }
 
 async function handleRegistration(usernameExists) {
     let username = registerText.value;
+    let email = registerEmailText.value;
 
-    if (usernameExists == "true") {
+    if (usernameExists == "truetrue" || usernameExists == "truefalse") {
         errorHeader.textContent = "Username Already Exists, Please Try Another.";
     } else {
-        let myUrl = `/addUser/${username}`;
+        let myUrl = `/addUser/${username}/${email}`;
 
         requestObj.open("GET", myUrl);
         requestObj.send();
@@ -45,7 +48,8 @@ async function handleRegistration(usernameExists) {
 
 function checkUsername() {
     let username = loginText.value;
-    let myUrl = `/checkUsername/${username}`;
+    let email = loginEmailText.value;
+    let myUrl = `/checkUsername/${username}/${email}`;
 
     requestObj.open("GET", myUrl);
     requestObj.send();
@@ -66,7 +70,8 @@ function checkUsername() {
 
 function checkUsernameRegistration() {
     let username = registerText.value;
-    let myUrl = `/checkUsername/${username}`;
+    let email = registerEmailText.value;
+    let myUrl = `/checkUsername/${username}/${email}`;
 
     requestObj.open("GET", myUrl);
     requestObj.send();

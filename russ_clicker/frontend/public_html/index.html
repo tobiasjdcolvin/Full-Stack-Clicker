@@ -13,15 +13,21 @@
     <br>
     <h1>Welcome To Russ Clicker!</h1>
     <br><br>
-    <label for="loginTxt">Log In:</label>
+    <label for="loginEmailTxt">Log In:</label>
     <br><br>
-    <input type="text" id="loginTxt" value="username">
-    <button onclick="checkUsername()">Submit</button>
+    <input type="text" id="loginTxt" placeholder="username">
+    <input type="button" value="Submit" onclick="checkUsername()">
+    <br><br>
+    <input type="email" id="loginEmailTxt" placeholder="email" required>
+    <button class="invisButton">Submit</button>
     <br><br><br><br><br>
-    <label for="registerTxt">Register:</label>
+    <label for="registerEmailTxt">Register:</label>
     <br><br>
-    <input type="text" id="registerTxt" value="username">
-    <button onclick="checkUsernameRegistration()">Submit</button>
+    <input type="text" id="registerTxt" placeholder="username">
+    <input type="button" value="Submit" onclick="checkUsernameRegistration()">
+    <br><br>
+    <input type="email" id="registerEmailTxt" name="registerEmailTxt" placeholder="email" required>
+    <button class="invisButton">Submit</button>
     <br><br><br>
     <h2 id="errorHeader"></h2>
 

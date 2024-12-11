@@ -20,6 +20,7 @@ const UnlocksSchema = new mongoose.Schema({
 
 const UserSchema = new mongoose.Schema({
     username: String,
+    email: String,
     score: Number,
     multiplier: Number,
     upgrades: { type: mongoose.Schema.Types.ObjectId, ref: "UpgradesObj" },
@@ -37,85 +38,35 @@ async function main() {
     // These will be the initial users stored in database,
     // all other users will need to be registered. This is so
     // we developers can test that everything is up and running
+    let usersExist = await UserObj.exists({ username: "pointcollector" });
 
-    // If Slurricane exists, the other 3 initial users also do, and vice versa
-    let slurricaneExists = await UserObj.exists({ username: "Slurricane" });
-
-    if (!slurricaneExists) {
+    if (!usersExist) {
 
 
-        let slurricaneUpgrades = new UpgradesObj({
-            offline: 1,
+        let pointcollectorUpgrades = new UpgradesObj({
+            offline: 0,
             ten: 0,
             hundred: 0,
         });
-        await slurricaneUpgrades.save();
+        await pointcollectorUpgrades.save();
 
-        let slurricaneUnlocks = new UnlocksObj({
-            bronze: 1,
-            silver: 1,
-            gold: 1,
-            equiped: "gold",
-        })
-        await slurricaneUnlocks.save();
-
-        let slurricaneUser = new UserObj({
-            username: "Slurricane",
-            score: 0,
-            multiplier: 1,
-            upgrades: slurricaneUpgrades._id,
-            unlocks: slurricaneUnlocks._id,
-        });
-        await slurricaneUser.save();
-
-
-        let tobinskiUnlocks = new UnlocksObj({
-            bronze: 1,
+        let pointcollectorUnlocks = new UnlocksObj({
+            bronze: 0,
             silver: 0,
             gold: 0,
-            equiped: "bronze",
+            equiped: "none",
         })
-        await tobinskiUnlocks.save();
+        await pointcollectorUnlocks.save();
 
-        let tobinskiUpgrades = new UpgradesObj({
-            offline: 0,
-            ten: 0,
-            hundred: 0,
-        });
-        await tobinskiUpgrades.save();
-
-        let tobinskiUser = new UserObj({
-            username: "Tobinski",
-            score: 49999,
+        let pointcollectorUser = new UserObj({
+            username: "pointcollector",
+            email: "pointcollector@gmail.com",
+            score: 999999,
             multiplier: 1,
-            upgrades: tobinskiUpgrades._id,
-            unlocks: tobinskiUnlocks._id,
+            upgrades: pointcollectorUpgrades._id,
+            unlocks: pointcollectorUnlocks._id,
         });
-        await tobinskiUser.save();
-
-        let dracianUnlocks = new UnlocksObj({
-            bronze: 1,
-            silver: 1,
-            gold: 0,
-            equiped: "silver",
-        })
-        await dracianUnlocks.save();
-
-        let dracianUpgrades = new UpgradesObj({
-            offline: 0,
-            ten: 0,
-            hundred: 0,
-        });
-        await dracianUpgrades.save();
-
-        let dracianUser = new UserObj({
-            username: "Dracian",
-            score: 0,
-            multiplier: 1,
-            upgrades: dracianUpgrades._id,
-            unlocks: dracianUnlocks._id,
-        });
-        await dracianUser.save();
+        await pointcollectorUser.save();
     }
 
 
@@ -146,12 +97,21 @@ setInterval(async () => {
 // API Endpoints below:
 
 // checks if username is exists in database
-app.get("/checkUsername/:username", async (req, res) => {
+app.get("/checkUsername/:username/:email", async (req, res) => {
 
     let usernameExists = await UserObj.exists({ username: req.params.username });
 
     if (usernameExists) {
-        usernameExists = "true";
+        let currUser = await UserObj.findOne({ username: req.params.username });
+        let userEmail = currUser.email;
+        if (req.params.email == userEmail) {
+            usernameExists = "truetrue";
+        } else {
+            usernameExists = "truefalse";
+        }
+
+    } else {
+        usernameExists = "false";
     }
 
     res.setHeader('Content-Type', 'text/plain');
@@ -160,8 +120,9 @@ app.get("/checkUsername/:username", async (req, res) => {
 })
 
 // adds a user to the database
-app.get("/addUser/:username", async (req, res) => {
+app.get("/addUser/:username/:email", async (req, res) => {
     let username = req.params.username;
+    let email = req.params.email;
 
     let newUserUnlocks = new UnlocksObj({
         bronze: 0,
@@ -179,6 +140,7 @@ app.get("/addUser/:username", async (req, res) => {
     await newUserUpgrades.save();
 
     let newUser = new UserObj({
+        email: `${email}`,
         username: `${username}`,
         score: 0,
         multiplier: 1,
