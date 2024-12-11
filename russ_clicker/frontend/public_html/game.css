@@ -3,7 +3,7 @@ body {
     text-align: center;
     margin: 0px;
     padding: 0px;
-    background-color: burlywood;
+    background-color: rgb(202, 167, 122);
     color: beige;
     /* without this, pixel art is blurry, found this solution on Stack Overflow. */
     image-rendering: pixelated;
@@ -34,10 +34,6 @@ button {
     position: fixed;
     top: 2px;
     height: 40px;
-}
-
-
-#logout {
     left: 1px;
 }
 

@@ -17,6 +17,10 @@ async function handleLogin(usernameExists) {
 
 }
 
+function help() {
+    window.location.href = "./help.html"; // this changes the url using the window object
+}
+
 async function handleRegistration(usernameExists) {
     let username = registerText.value;
     let email = registerEmailText.value;
