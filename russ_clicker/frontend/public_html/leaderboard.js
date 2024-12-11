@@ -82,17 +82,40 @@ initCurrUser();
 
 
 async function populateTable(userArray) {
-    for (let i = 0; ((i < userArray.length) && (i < 10)); i++) {
+    for (let i = 0; ((i < userArray.length) && (i < 5)); i++) {
         let scoreI = document.getElementById(`${i}Score`);
         let usernameI = document.getElementById(`${i}Username`);
+        let iconI = document.getElementById(`${i}Icon`);
 
         scoreI.textContent = `${userArray[i]["score"]}`;
         usernameI.textContent = userArray[i]["username"];
 
+        if (userArray[i]["unlocks"]["equiped"] == "bronze") {
+            iconI.innerHTML = "<img src='images/russBronze.png'>";
+        } else if (userArray[i]["unlocks"]["equiped"] == "silver") {
+            iconI.innerHTML = "<img src='images/russSilver.png'>";
+        } else if (userArray[i]["unlocks"]["equiped"] == "gold") {
+            iconI.innerHTML = "<img src='images/russGold.png'>";
+        } else {
+            iconI.innerHTML = "<img src='images/russ.png'>";
+        }
 
         if (usernameI.textContent == username) {
             document.getElementById("youScore").textContent = `${userArray[i]["score"]}`;
             document.getElementById("youRank").textContent = `#${i + 1}`;
+            let iconYou = document.getElementById("youIcon");
+
+            if (userArray[i]["unlocks"]["equiped"] == "bronze") {
+                iconYou.innerHTML = "<img src='images/russBronze.png'>";
+            } else if (userArray[i]["unlocks"]["equiped"] == "silver") {
+                iconYou.innerHTML = "<img src='images/russSilver.png'>";
+            } else if (userArray[i]["unlocks"]["equiped"] == "gold") {
+                iconYou.innerHTML = "<img src='images/russGold.png'>";
+            } else {
+                iconYou.innerHTML = "<img src='images/russ.png'>";
+            }
+
+
         }
     }
     await setTimeout(() => { }, 1000);

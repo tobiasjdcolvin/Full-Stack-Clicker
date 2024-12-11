@@ -412,6 +412,10 @@ app.get("/getPlayers", async (req, res) => {
     // sort players by score from most to least (in reverse order, hence the -1).
     let players = await UserObj.find({}).sort({ 'score': -1 });
 
+    for (let player of players) {
+        await player.populate("unlocks");
+    }
+
     // send in json format
     res.setHeader('Content-Type', 'application/json');
     res.statusCode = 200;
