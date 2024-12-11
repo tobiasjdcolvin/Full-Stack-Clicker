@@ -9,20 +9,10 @@ body {
     image-rendering: pixelated;
 }
 
-::placeholder {
-    color: beige;
-}
-
-input {
-    color: beige;
-    background-color: rgb(153, 126, 93);
-    border-color: rgb(131, 108, 80);
-    border-radius: 4px;
-}
-
-input:focus {
-    /* Removes weird blue glow from text when inputting */
-    outline: none;
+#pContainer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
 }
 
 button {
@@ -30,13 +20,12 @@ button {
     background-color: rgb(153, 126, 93);
     border-color: rgb(131, 108, 80);
     border-radius: 4px;
+    height: 40px;
 }
 
-.invisButton {
-    visibility: hidden;
-}
-
-#helpButton {
-    width: 90px;
-    height: 25px;
+#back {
+    position: fixed;
+    top: 2px;
+    height: 40px;
+    left: 1px;
 }
