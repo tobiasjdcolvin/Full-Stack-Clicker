@@ -273,6 +273,7 @@ app.get("/equipBronze/:username/:threshold", async (req, res) => {
     if ((currPoints >= threshold) || (currUser.unlocks.bronze == 1)) {
         myResponse = "true";
         currUser.unlocks.equiped = "bronze";
+        currUser.unlocks.bronze = 1;
         await currUser.unlocks.save();
         await currUser.save();
     } else {
@@ -298,6 +299,7 @@ app.get("/equipSilver/:username/:threshold", async (req, res) => {
     if ((currPoints >= threshold) || (currUser.unlocks.silver == 1)) {
         myResponse = "true";
         currUser.unlocks.equiped = "silver";
+        currUser.unlocks.silver = 1;
         await currUser.unlocks.save();
         await currUser.save();
     } else {
@@ -323,6 +325,7 @@ app.get("/equipGold/:username/:threshold", async (req, res) => {
     if ((currPoints >= threshold) || (currUser.unlocks.gold == 1)) {
         myResponse = "true";
         currUser.unlocks.equiped = "gold";
+        currUser.unlocks.gold = 1;
         await currUser.unlocks.save();
         await currUser.save();
     } else {
