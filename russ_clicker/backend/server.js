@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { stringify } = require('querystring');
 const mongoURL = "mongodb://127.0.0.1/russ_clicker_db";
 const app = express();
-const port = 50001;
+const port = 8080;
 
 const UpgradesSchema = new mongoose.Schema({
     offline: Number,
@@ -389,5 +389,5 @@ app.get("/getPlayers", async (req, res) => {
 app.use(express.static("../frontend/public_html"));
 
 app.listen(port, () => {
-    console.log(`\nServer running at 127.0.0.1:${port}`);
+    console.log(`\nServer running at port ${port}`);
 });
