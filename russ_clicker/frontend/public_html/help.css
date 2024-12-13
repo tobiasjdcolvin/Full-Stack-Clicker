@@ -29,3 +29,7 @@ button {
     height: 40px;
     left: 1px;
 }
+
+p {
+    line-height: 2em;
+}
