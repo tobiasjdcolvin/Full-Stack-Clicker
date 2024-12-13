@@ -1,6 +1,7 @@
 # Russ Clicker
 ## A full-stack clicker game with a leaderboard, final project for csc337.
 ### "Russ" is the name of our professor, so we made the game based on him (we made a pixel art version of him).
+[Video showcasing the final product](https://youtu.be/SOdRzc5M06A?si=FrQAeSGaTDsUH4Ag)
 
 ## Getting Started (For My Teammates):
 1. Clone this repository to your local machine.
